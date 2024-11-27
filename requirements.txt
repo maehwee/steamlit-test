@@ -1,7 +1,5 @@
 streamlit
 pandas
 
-streamlit_analytics
-
 openai
 huggingface-hub
