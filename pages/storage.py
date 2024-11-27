@@ -12,7 +12,7 @@ df = conn.read("streamlitbucket2/myfile.csv", input_format="csv", ttl=600)
 
 # Print results.
 for row in df.itertuples():
-    st.write(f"{row.Name} said :{row.Message}:")
+    st.write(f"{row.Name} said \"{row.Message}\"")
 
 
 # Writing to file
