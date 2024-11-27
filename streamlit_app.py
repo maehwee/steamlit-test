@@ -3,6 +3,12 @@ import pandas as pd
 import math
 from pathlib import Path
 
+import streamlit_analytics
+
+with streamlit_analytics.track():
+    st.text_input("Write something")
+    st.button("Click me")
+
 # Set the title and favicon that appear in the Browser's tab bar.
 st.set_page_config(
     page_title='GDP dashboard',
