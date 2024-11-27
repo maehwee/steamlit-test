@@ -5,10 +5,9 @@ from huggingface_hub import InferenceClient
 import random
 import io
 
-OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+#OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 HF_API_KEY = st.secrets["HF_API_KEY"]
 
-OPENAI_PROVIDER = "openai"
 HF_PROVIDER = "huggingface"
 HF_CUSTOM_PROVIDER = "huggingface-custom"
 FAKE_PROVIDER = "fake"
@@ -18,10 +17,10 @@ MODEL_OPTIONS = {
     "llama-3.2-1B": {"provider": HF_PROVIDER, "id": "meta-llama/Llama-3.2-1B-Instruct"},
     "phi-3.5-mini-instruct": {"provider": HF_PROVIDER, "id": "microsoft/Phi-3.5-mini-instruct"},
 
-    # OpenAI models
-    "gpt-3.5-turbo": {"provider": OPENAI_PROVIDER, "id": "gpt-3.5-turbo"},
-    "gpt-4o": {"provider": OPENAI_PROVIDER, "id": "gpt-4o"},
-    "gpt-4o-mini": {"provider": OPENAI_PROVIDER, "id": "gpt-4o-mini"},
+    # # OpenAI models
+    # "gpt-3.5-turbo": {"provider": OPENAI_PROVIDER, "id": "gpt-3.5-turbo"},
+    # "gpt-4o": {"provider": OPENAI_PROVIDER, "id": "gpt-4o"},
+    # "gpt-4o-mini": {"provider": OPENAI_PROVIDER, "id": "gpt-4o-mini"},
 
     # Special models
     "fake-model": {"provider": FAKE_PROVIDER, "id": "fake"},
@@ -44,9 +43,6 @@ def get_provider_callable(model_key):
     
     if provider == HF_CUSTOM_PROVIDER:
         return get_hf_response
-    
-    if provider == OPENAI_PROVIDER:
-        return get_openai_response
     
     return None
 
@@ -104,21 +100,6 @@ def is_custom_model(model_key):
     Check if the model is a custom model
     """
     return MODEL_OPTIONS[model_key]["provider"] == HF_CUSTOM_PROVIDER
-
-
-def get_openai_response(model_id, messages):
-    """
-    Get a streamed response from OpenAI
-    """
-    client = OpenAI(api_key=OPENAI_API_KEY)
-
-    stream = client.chat.completions.create(
-        model=model_id,
-        messages=format_message_list(messages),
-        stream=True,
-    )
-
-    return stream
 
 
 def format_message_list(messages):
