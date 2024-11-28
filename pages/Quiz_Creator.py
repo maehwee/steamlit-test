@@ -140,7 +140,7 @@ import io
 
 #--- Main Page ---
 st.markdown("# Multiple Choice Quiz")
-st.markdown("## Create a multiple choice quiz based on a grade level and topic")
+st.markdown("#### Create a multiple choice quiz based on a grade level and topic")
 
 # Create two dropdown menus
 grade_level = st.selectbox("Grade level:", 
