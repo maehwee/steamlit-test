@@ -148,23 +148,21 @@ n_questions = st.selectbox("Number of questions:",
                             options = ["3", "5", "10"],
                             index = 0)
 
-# Initialize session state for user input if it doesn't exist
-if 'user_input' not in st.session_state:
-    st.session_state.user_input = ""
-
 # Create a textbox
 user_input = st.text_area("Quiz topic:", 
                             placeholder="US History", 
                             height=150, 
-                            key="user_input"
                             )
 
 # Generate quiz
-if st.button("Generate Quiz", type="primary", use_container_width=True, disabled=(st.session_state.user_input == "")):
-    with st.spinner("Generating quiz..."):
-        # Generate the quiz
-        # generate_quiz(grade_level, n_questions, user_input)
-        st.success("Quiz generated!")
+if st.button("Generate Quiz", type="primary", use_container_width=True):
+    if (user_input == ""):
+        st.error("Please enter a topic")
+    else:
+        with st.spinner("Generating quiz..."):
+            # Generate the quiz
+            # generate_quiz(grade_level, n_questions, user_input)
+            st.success("Quiz generated!")
 
 # Init chat history
 if "messages" not in st.session_state:
