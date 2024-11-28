@@ -141,8 +141,8 @@ def get_chosen_model():
 #--- Main Page ---
 
 # Create two dropdown menus
-grade_level = st.selectbox("Grade level:", ["Pre-K", "Kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12th grade"])[2]
-n_questions = st.selectbox("Number of questions:", ["3", "5", "10"])[1]
+grade_level = st.selectbox("Grade level:", ["Pre-K", "Kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12th grade"])
+n_questions = st.selectbox("Number of questions:", ["3", "5", "10"])
 
 # Create a textbox
 user_input = st.text_area("Quiz topic:", placeholder="US History", height=150)
