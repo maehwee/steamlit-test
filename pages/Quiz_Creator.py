@@ -141,14 +141,26 @@ def get_chosen_model():
 #--- Main Page ---
 
 # Create two dropdown menus
-grade_level = st.selectbox("Grade level:", ["Pre-K", "Kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12th grade"])
-n_questions = st.selectbox("Number of questions:", ["3", "5", "10"])
+grade_level = st.selectbox("Grade level:", 
+                            options = ["Pre-K", "Kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12th grade"],
+                            index = 13)
+n_questions = st.selectbox("Number of questions:", 
+                            options = ["3", "5", "10"],
+                            index = 0)
+
+# Initialize session state for user input if it doesn't exist
+if 'user_input' not in st.session_state:
+    st.session_state.user_input = ""
 
 # Create a textbox
-user_input = st.text_area("Quiz topic:", placeholder="US History", height=150)
+user_input = st.text_area("Quiz topic:", 
+                            placeholder="US History", 
+                            height=150, 
+                            key="user_input"
+                            )
 
 # Generate quiz
-if st.button("Generate Quiz", type="primary", use_container_width=True):
+if st.button("Generate Quiz", type="primary", use_container_width=True, disabled=(st.session_state.user_input == "")):
     with st.spinner("Generating quiz..."):
         # Generate the quiz
         # generate_quiz(grade_level, n_questions, user_input)
