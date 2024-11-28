@@ -141,11 +141,18 @@ def get_chosen_model():
 #--- Main Page ---
 
 # Create two dropdown menus
-grade_level = st.selectbox("Grade level:", ["Option A", "Option B", "Option C"])[1]
-n_questions = st.selectbox("Number of questions:", ["Choice 1", "Choice 2", "Choice 3"])[1]
+grade_level = st.selectbox("Grade level:", ["Pre-K", "Kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12th grade"])[13]
+n_questions = st.selectbox("Number of questions:", ["3", "5", "10"])[1]
 
 # Create a textbox
-user_input = st.text_input("Quiz topic:")[1]
+user_input = st.text_area("Quiz topic:", placeholder="US History", height=150)
+
+# Generate quiz
+if st.button("Generate Quiz", type="primary", use_container_width=True):
+    with st.spinner("Generating quiz..."):
+        # Generate the quiz
+        # generate_quiz(grade_level, n_questions, user_input)
+        st.success("Quiz generated!")
 
 # Init chat history
 if "messages" not in st.session_state:
