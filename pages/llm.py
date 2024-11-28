@@ -16,7 +16,6 @@ MODEL_OPTIONS = {
     # Hugging Face models
     "llama-3.2-1B-Instruct": {"provider": HF_PROVIDER, "id": "meta-llama/Llama-3.2-1B-Instruct"},
     "llama-3.2-3B-Instruct": {"provider": HF_PROVIDER, "id": "meta-llama/Llama-3.2-3B-Instruct"},
-    "llama-3.2-11B-Instruct": {"provider": HF_PROVIDER, "id": "meta-llama/Llama-3.2-11B-Instruct"},
     "phi-3.5-mini-instruct": {"provider": HF_PROVIDER, "id": "microsoft/Phi-3.5-mini-instruct"},
     "Qwen/QwQ-32B-Preview": {"provider": HF_PROVIDER, "id": "Qwen/QwQ-32B-Preview"},
 
