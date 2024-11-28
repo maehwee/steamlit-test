@@ -166,12 +166,12 @@ Please include a Title at the top of the quiz and an Answer Key at the end of th
 
 # Generate quiz
 if st.button("Generate Quiz", type="primary", use_container_width=True):
-    if (user_input == ""):
+    if (quiz_topic == ""):
         st.error("Please enter a topic")
     else:
         with st.spinner("Generating quiz..."):
             # Generate the quiz
-            # generate_quiz(grade_level, n_questions, user_input)
+            # generate_quiz(grade_level, n_questions, quiz_topic)
             st.success("Quiz generated!")
 
 # Init chat history
