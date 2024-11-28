@@ -1,31 +1,32 @@
 import streamlit as st
 from openai import OpenAI
-from huggingface_hub import InferenceClient
 
-import random
 import io
 
 # #OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
-# HF_API_KEY = st.secrets["HF_API_KEY"]
+HF_API_KEY = st.secrets["HF_API_KEY"]
 
-# HF_PROVIDER = "huggingface"
+HF_PROVIDER = "huggingface"
 # HF_CUSTOM_PROVIDER = "huggingface-custom"
 # FAKE_PROVIDER = "fake"
 
-# MODEL_OPTIONS = {
-#     # Hugging Face models
-#     "llama-3.2-1B": {"provider": HF_PROVIDER, "id": "meta-llama/Llama-3.2-1B-Instruct"},
-#     "phi-3.5-mini-instruct": {"provider": HF_PROVIDER, "id": "microsoft/Phi-3.5-mini-instruct"},
+MAX_TOKENS = 500
 
-#     # # OpenAI models
-#     # "gpt-3.5-turbo": {"provider": OPENAI_PROVIDER, "id": "gpt-3.5-turbo"},
-#     # "gpt-4o": {"provider": OPENAI_PROVIDER, "id": "gpt-4o"},
-#     # "gpt-4o-mini": {"provider": OPENAI_PROVIDER, "id": "gpt-4o-mini"},
+MODEL_OPTIONS = {
+    # Hugging Face models
+    "llama-3.2-1B": {"provider": HF_PROVIDER, "id": "meta-llama/Llama-3.2-1B-Instruct"},
+    "phi-3.5-mini-instruct": {"provider": HF_PROVIDER, "id": "microsoft/Phi-3.5-mini-instruct"},
+    "Qwen/QwQ-32B-Preview": {"provider": HF_PROVIDER, "id": "Qwen/QwQ-32B-Preview"},
 
-#     # Special models
-#     "fake-model": {"provider": FAKE_PROVIDER, "id": "fake"},
-#     "other hugging face model": {"provider": HF_CUSTOM_PROVIDER, "id": "replaced-by-write-in"},
-# }
+    # # OpenAI models
+    # "gpt-3.5-turbo": {"provider": OPENAI_PROVIDER, "id": "gpt-3.5-turbo"},
+    # "gpt-4o": {"provider": OPENAI_PROVIDER, "id": "gpt-4o"},
+    # "gpt-4o-mini": {"provider": OPENAI_PROVIDER, "id": "gpt-4o-mini"},
+
+    # Special models
+    "fake-model": {"provider": FAKE_PROVIDER, "id": "fake"},
+    "other hugging face model": {"provider": HF_CUSTOM_PROVIDER, "id": "replaced-by-write-in"},
+}
 
 
 # def get_provider_callable(model_key):
@@ -66,7 +67,7 @@ import io
 
 # def format_hf_endpoint(model_id):
 #     """
-#     Format the endpoing for a Hugging Face model from its id
+#     Format the endpoint for a Hugging Face model from its id
 
 #     e.g. for google/gemma-2-2b-it it will be:
 #     https://api-inference.huggingface.co/models/google/gemma-2-2b-it/v1/chat/completions
@@ -90,7 +91,7 @@ import io
 #         model="tgi",
 #         messages=format_message_list(messages),
 #         stream=True,
-#         max_tokens=500,
+#         max_tokens=MAX_TOKENS,
 #     )
 
 #     return chat_completion
@@ -155,6 +156,11 @@ user_input = st.text_area("Quiz topic:",
                             placeholder="US History", 
                             height=150, 
                             )
+
+prompt = f'''I am a teacher. Please create a multiple choice quiz about {user_input} for {grade_level} students.
+The quiz should have {n_questions} questions, and each question should have 4 possible answers. 
+Please include a Title at the top of the quiz and an Answer Key at the end of the quiz.
+'''
 
 # Generate quiz
 if st.button("Generate Quiz", type="primary", use_container_width=True):
