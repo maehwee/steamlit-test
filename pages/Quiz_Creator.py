@@ -168,7 +168,13 @@ with st.form('create_quiz'):
     submit = st.form_submit_button('create_quiz', type="primary", use_container_width=True)
 
 if submit:
-    st.success("Quiz generated!")
+    if (quiz_topic == ""):
+        st.error("Please enter a topic")
+    else:
+        with st.spinner("Generating quiz..."):
+            # Generate the quiz
+            # generate_quiz(grade_level, n_questions, quiz_topic)
+            st.success("Quiz generated!")
 
 
 
