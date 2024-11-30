@@ -145,34 +145,44 @@ def get_chosen_model():
 st.markdown("# Multiple Choice Quiz")
 st.markdown("#### Create a multiple choice quiz based on a grade level and topic")
 
-# Create two dropdown menus
-grade_level = st.selectbox("Grade level:", 
-                            options = ["Pre-K", "Kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12th grade"],
-                            index = 13)
-n_questions = st.selectbox("Number of questions:", 
-                            options = ["3", "5", "10"],
-                            index = 0)
+# Create a form
+with st.form('create_quiz'):
+    # Create two dropdown menus
+    grade_level = st.selectbox("Grade level:", 
+                                options = ["Pre-K", "Kindergarten", "1st grade", "2nd grade", "3rd grade", "4th grade", "5th grade", "6th grade", "7th grade", "8th grade", "9th grade", "10th grade", "11th grade", "12th grade"],
+                                index = 13)
+    n_questions = st.selectbox("Number of questions:", 
+                                options = ["3", "5", "10"],
+                                index = 0)
 
-# Create a textbox
-quiz_topic = st.text_area("Quiz topic:", 
-                            placeholder="US History", 
-                            height=150, 
-                            )
+    # Create a textbox
+    quiz_topic = st.text_area("Quiz topic:", 
+                                placeholder="US History", 
+                                height=150, 
+                                )
+    
+    quiz_prompt = f'''I am a teacher. Please create a multiple choice quiz about {quiz_topic} for {grade_level} students.
+                    The quiz should have {n_questions} questions, and each question should have 4 possible answers. 
+                    Please include a Title at the top of the quiz and an Answer Key at the end of the quiz.
+                    '''
+    submit = st.form_submit_button('create_quiz', type="primary", use_container_width=True)
 
-quiz_prompt = f'''I am a teacher. Please create a multiple choice quiz about {quiz_topic} for {grade_level} students.
-The quiz should have {n_questions} questions, and each question should have 4 possible answers. 
-Please include a Title at the top of the quiz and an Answer Key at the end of the quiz.
-'''
+if submit:
+    st.success("Quiz generated!")
 
-# Generate quiz
-if st.button("Generate Quiz", type="primary", use_container_width=True):
-    if (quiz_topic == ""):
-        st.error("Please enter a topic")
-    else:
-        with st.spinner("Generating quiz..."):
-            # Generate the quiz
-            # generate_quiz(grade_level, n_questions, quiz_topic)
-            st.success("Quiz generated!")
+
+
+
+
+# # Generate quiz
+# if st.button("Generate Quiz", type="primary", use_container_width=True):
+#     if (quiz_topic == ""):
+#         st.error("Please enter a topic")
+#     else:
+#         with st.spinner("Generating quiz..."):
+#             # Generate the quiz
+#             # generate_quiz(grade_level, n_questions, quiz_topic)
+#             st.success("Quiz generated!")
 
 # Init chat history
 if "messages" not in st.session_state:
