@@ -165,7 +165,7 @@ with st.form('create_quiz'):
                     The quiz should have {n_questions} questions, and each question should have 4 possible answers. 
                     Please include a Title at the top of the quiz and an Answer Key at the end of the quiz.
                     '''
-    submit = st.form_submit_button('create_quiz', type="primary", use_container_width=True)
+    submit = st.form_submit_button('Create Quiz', type="primary", use_container_width=True)
 
 if submit:
     if (quiz_topic == ""):
@@ -175,6 +175,7 @@ if submit:
             # Generate the quiz
             # generate_quiz(grade_level, n_questions, quiz_topic)
             st.success("Quiz generated!")
+            st.markdown(quiz_prompt)
 
 
 
